@@ -1,0 +1,1210 @@
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/roast/RoastTemperature.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/roast/RoastTemperature.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/roast/RoastTemperature.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/roast/RoastTemperature.java	
++++ /dev/null	
+@@ -1,9 +0,0 @@
+-package org.coffee_machine.coffee.ingridients.beans.roast;
+-
+-public interface RoastTemperature {
+-
+-    float LIGHT = 205;
+-    float MEDIUM = 215.5f;
+-    float DARK = 224;
+-
+-}
+Index: src/main/java/org/example/machine/CoffeeMachine.java
+===================================================================
+diff --git a/src/main/java/org/example/machine/CoffeeMachine.java b/src/main/java/org/example/machine/CoffeeMachine.java
+deleted file mode 100644
+--- a/src/main/java/org/example/machine/CoffeeMachine.java	
++++ /dev/null	
+@@ -1,99 +0,0 @@
+-package org.example.machine;
+-
+-import org.example.coffee.*;
+-
+-public abstract class CoffeeMachine implements AverageCoffeeMachine, CoffeeRoastTemperature {
+-
+-    private WaterType waterType;
+-    private CoffeeRoast roast;
+-    private CoffeeBeanType beanType;
+-    private Coffee coffee;
+-    private float temperature = 90;
+-
+-    public CoffeeMachine(WaterType waterType, CoffeeRoast roast, CoffeeBeanType beanType) {
+-        this.waterType = waterType;
+-        this.roast = roast;
+-        this.beanType = beanType;
+-    }
+-
+-
+-
+-
+-    @Override
+-    abstract public void start();
+-
+-    @Override
+-    abstract public void stop();
+-
+-    @Override
+-    abstract public void pause();
+-
+-
+-
+-
+-    @Deprecated
+-    public void defineCoffeeTemperature() {
+-        if (roast == CoffeeRoast.LIGHT) temperature = LIGHT;
+-        if (roast == CoffeeRoast.MEDIUM) temperature = MEDIUM;
+-        if (roast == CoffeeRoast.DARK) temperature = DARK;
+-        if (roast == CoffeeRoast.COAL) temperature = COAL;
+-    }
+-
+-    public void showCoffeeConfiguration() {
+-        System.out.println("================Your coffee is ready!================");
+-
+-        displayFormattedConfigurationField("Bean", beanType);
+-        displayFormattedConfigurationField("Roast", roast);
+-        displayFormattedConfigurationField("Water", waterType);
+-    }
+-
+-
+-
+-
+-    private <T> void displayFormattedConfigurationField(String message, T t) {
+-        System.out.println(message + ": " + t.toString().substring(0, 1).toUpperCase() + t.toString().substring(1).toLowerCase());
+-    }
+-
+-
+-
+-
+-    public WaterType getWaterType() {
+-        return waterType;
+-    }
+-
+-    public void setWaterType(WaterType waterType) {
+-        this.waterType = waterType;
+-    }
+-
+-    public CoffeeRoast getRoast() {
+-        return roast;
+-    }
+-
+-    public void setRoast(CoffeeRoast roast) {
+-        this.roast = roast;
+-    }
+-
+-    public CoffeeBeanType getBeanType() {
+-        return beanType;
+-    }
+-
+-    public void setBeanType(CoffeeBeanType beanType) {
+-        this.beanType = beanType;
+-    }
+-
+-    public Coffee getCoffee() {
+-        return coffee;
+-    }
+-
+-    public void setCoffee(Coffee coffee) {
+-        this.coffee = coffee;
+-    }
+-
+-    public float getTemperature() {
+-        return temperature;
+-    }
+-
+-    public void setTemperature(float temperature) {
+-        this.temperature = temperature;
+-    }
+-}
+Index: src/main/java/org/example/machine/AverageCoffeeMachine.java
+===================================================================
+diff --git a/src/main/java/org/example/machine/AverageCoffeeMachine.java b/src/main/java/org/example/machine/AverageCoffeeMachine.java
+deleted file mode 100644
+--- a/src/main/java/org/example/machine/AverageCoffeeMachine.java	
++++ /dev/null	
+@@ -1,9 +0,0 @@
+-package org.example.machine;
+-
+-public interface AverageCoffeeMachine {
+-
+-    void start();
+-    void stop();
+-    void pause();
+-
+-}
+Index: ../CoffeeMachine_v2/.idea/encodings.xml
+===================================================================
+diff --git a/../CoffeeMachine_v2/.idea/encodings.xml b/../CoffeeMachine_v2/.idea/encodings.xml
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/.idea/encodings.xml	
++++ /dev/null	
+@@ -1,7 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="Encoding">
+-    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+-    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: src/main/java/org/example/machine/MyCoffeeMachine.java
+===================================================================
+diff --git a/src/main/java/org/example/machine/MyCoffeeMachine.java b/src/main/java/org/example/machine/MyCoffeeMachine.java
+deleted file mode 100644
+--- a/src/main/java/org/example/machine/MyCoffeeMachine.java	
++++ /dev/null	
+@@ -1,42 +0,0 @@
+-package org.example.machine;
+-
+-import org.example.coffee.*;
+-import org.jetbrains.annotations.NotNull;
+-import org.w3c.dom.ls.LSOutput;
+-
+-public class MyCoffeeMachine extends CoffeeMachine {
+-
+-    private WaterType waterType;
+-    private CoffeeRoast roast;
+-    private CoffeeBeanType beanType;
+-    private Coffee coffee;
+-    private float temperature;
+-
+-    public MyCoffeeMachine(WaterType waterType, CoffeeRoast roast, CoffeeBeanType beanType) {
+-        super(waterType, roast, beanType);
+-    }
+-
+-
+-
+-
+-    @Override
+-    public void start() {
+-        System.out.println("================Making a cup of coffee for you================");
+-
+-        defineCoffeeTemperature();
+-        coffee = new Coffee(beanType, temperature, roast, waterType);
+-
+-        showCoffeeConfiguration();
+-    }
+-
+-    @Override
+-    public void stop() {
+-
+-    }
+-
+-    @Override
+-    public void pause() {
+-
+-    }
+-
+-}
+Index: src/main/java/org/example/interaction/UserInteraction.java
+===================================================================
+diff --git a/src/main/java/org/example/interaction/UserInteraction.java b/src/main/java/org/example/interaction/UserInteraction.java
+deleted file mode 100644
+--- a/src/main/java/org/example/interaction/UserInteraction.java	
++++ /dev/null	
+@@ -1,80 +0,0 @@
+-package org.example.interaction;
+-
+-import org.example.coffee.CoffeeBeanType;
+-import org.example.coffee.CoffeeRoast;
+-import org.example.coffee.WaterType;
+-import org.example.machine.MyCoffeeMachine;
+-
+-import java.util.Scanner;
+-
+-public class UserInteraction {
+-
+-    private Scanner scanner;
+-    private WaterType waterType;
+-    private CoffeeRoast roast;
+-    private CoffeeBeanType beanType;
+-
+-    public UserInteraction() {
+-        scanner = new Scanner(System.in);
+-    }
+-
+-
+-
+-
+-    public void startCoffeeMachine() {
+-        askRequirements();
+-    }
+-
+-
+-
+-
+-    private void askRequirements() {
+-        System.out.println("================Hello dear user, which coffee do you desire?================");
+-
+-        try {
+-            askBeanType();
+-            askRoastType();
+-            askWaterType();
+-
+-            sendDataToCoffeeMachine();
+-        } catch (RuntimeException exception) {
+-            System.out.println("================" + exception.getMessage() + "================");
+-        }
+-
+-    }
+-
+-    private void askWaterType() {
+-        String userWaterType = askUser("Water type [filtered, mineral, tap]");
+-
+-        waterType = WaterType.valueOf(userWaterType.toUpperCase());
+-    }
+-
+-    private void askRoastType() {
+-        String userRoastType = askUser("Roast type [light, medium, dark, coal]");
+-
+-        roast = CoffeeRoast.valueOf(userRoastType.toUpperCase());
+-    }
+-
+-    private void askBeanType() {
+-        String userBeanType = askUser("Coffee bean type [arabica, robusta]");
+-
+-        beanType = CoffeeBeanType.valueOf(userBeanType.toUpperCase());
+-    }
+-
+-    private void sendDataToCoffeeMachine() {
+-        MyCoffeeMachine myCoffeeMachine = new MyCoffeeMachine(waterType, roast, beanType);
+-
+-        myCoffeeMachine.start();
+-    }
+-
+-    private String askUser(String question) {
+-        System.out.print(question + ": ");
+-        String answer = scanner.nextLine();
+-
+-        if (!answer.isEmpty()) {
+-            return answer;
+-        }
+-        throw new RuntimeException("Answer cannot be empty!");
+-    }
+-
+-}
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/additive/AdditiveIngredients.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/additive/AdditiveIngredients.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/additive/AdditiveIngredients.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/additive/AdditiveIngredients.java	
++++ /dev/null	
+@@ -1,15 +0,0 @@
+-package org.coffee_machine.coffee.ingridients.additive;
+-
+-public enum AdditiveIngredients {
+-
+-    WHIPPED_CREAM,
+-    CARAMEL,
+-    LEMON_JUICE,
+-    WATER,
+-    WHISKEY,
+-    MILK,
+-    FROTHED_MILK,
+-    CHOCOLATE,
+-    ESPRESSO
+-
+-}
+Index: src/main/java/org/example/machine/OtherCoffeeMachine.java
+===================================================================
+diff --git a/src/main/java/org/example/machine/OtherCoffeeMachine.java b/src/main/java/org/example/machine/OtherCoffeeMachine.java
+deleted file mode 100644
+--- a/src/main/java/org/example/machine/OtherCoffeeMachine.java	
++++ /dev/null	
+@@ -1,41 +0,0 @@
+-package org.example.machine;
+-
+-import org.example.coffee.*;
+-
+-public class OtherCoffeeMachine extends CoffeeMachine {
+-
+-    private WaterType waterType;
+-    private CoffeeRoast roast;
+-    private CoffeeBeanType beanType;
+-    private Coffee coffee;
+-    private float temperature;
+-
+-    public OtherCoffeeMachine(WaterType waterType, CoffeeRoast roast, CoffeeBeanType beanType) {
+-        super(waterType, roast, beanType);
+-    }
+-
+-
+-
+-
+-    @Override
+-    public void start() {
+-        System.out.println("================Making a cup of coffee for you================");
+-
+-        defineCoffeeTemperature();
+-        coffee = new Coffee(beanType, temperature, roast, waterType);
+-
+-        showCoffeeConfiguration();
+-    }
+-
+-    @Override
+-    public void stop() {
+-
+-    }
+-
+-    @Override
+-    public void pause() {
+-
+-    }
+-
+-
+-}
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/machine/MyCoffeeMachine.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/machine/MyCoffeeMachine.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/machine/MyCoffeeMachine.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/machine/MyCoffeeMachine.java	
++++ /dev/null	
+@@ -1,56 +0,0 @@
+-package org.coffee_machine.machine;
+-
+-import org.coffee_machine.coffee.ingridients.additive.AdditiveIngredients;
+-import org.coffee_machine.coffee.ingridients.beans.Beans;
+-import org.coffee_machine.coffee.ingridients.result.CupOfCoffee;
+-import org.coffee_machine.user_interface.UserInterface;
+-
+-import java.util.List;
+-
+-public class MyCoffeeMachine extends AverageCoffeeMachine {
+-    private final UserInterface userInterface;
+-    private Beans beans;
+-    private List<AdditiveIngredients> additiveIngredientsList;
+-    private CupOfCoffee cupOfCoffee;
+-
+-    public MyCoffeeMachine(Beans beans, List<AdditiveIngredients> additiveIngredientsList) {
+-        this.beans = beans;
+-        this.additiveIngredientsList = additiveIngredientsList;
+-        userInterface = new UserInterface();
+-    }
+-
+-    @Override
+-    public void start() {
+-        userInterface.sayHello("==========My Coffee Machine started!==========");
+-        createCupOfCoffee();
+-        showCoffeeConfiguration();
+-    }
+-
+-    @Override
+-    void pause() {
+-
+-    }
+-
+-    @Override
+-    void stop() {
+-
+-    }
+-
+-    private void createCupOfCoffee() {
+-        beans.defineCoffeeTemperature();
+-
+-        cupOfCoffee = new CupOfCoffee("Cap", beans, additiveIngredientsList);
+-    }
+-
+-    public void showCoffeeConfiguration() {
+-        System.out.println("Capacity: " + cupOfCoffee.getCapacity());
+-        beans.showConfiguration();
+-        showAdditiveIngredientsConfiguration();
+-    }
+-
+-    private void showAdditiveIngredientsConfiguration() {
+-        for (AdditiveIngredients ingredient : additiveIngredientsList)
+-            System.out.println("Additive ingredient: " + ingredient);
+-    }
+-    
+-}
+Index: ../CoffeeMachine_v2/.idea/misc.xml
+===================================================================
+diff --git a/../CoffeeMachine_v2/.idea/misc.xml b/../CoffeeMachine_v2/.idea/misc.xml
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/.idea/misc.xml	
++++ /dev/null	
+@@ -1,14 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ExternalStorageConfigurationManager" enabled="true" />
+-  <component name="MavenProjectsManager">
+-    <option name="originalFiles">
+-      <list>
+-        <option value="$PROJECT_DIR$/pom.xml" />
+-      </list>
+-    </option>
+-  </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_20" default="true" project-jdk-name="20" project-jdk-type="JavaSDK">
+-    <output url="file://$PROJECT_DIR$/out" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/BeanType.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/BeanType.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/BeanType.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/BeanType.java	
++++ /dev/null	
+@@ -1,8 +0,0 @@
+-package org.coffee_machine.coffee.ingridients.beans.type;
+-
+-public enum BeanType {
+-
+-    ARABICA,
+-    ROBUSTA
+-
+-}
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/user_interface/AskCharacteristics.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/user_interface/AskCharacteristics.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/user_interface/AskCharacteristics.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/user_interface/AskCharacteristics.java	
++++ /dev/null	
+@@ -1,82 +0,0 @@
+-package org.coffee_machine.user_interface;
+-
+-import org.coffee_machine.coffee.ingridients.additive.AdditiveIngredients;
+-import org.coffee_machine.coffee.ingridients.beans.Beans;
+-import org.coffee_machine.coffee.ingridients.beans.roast.RoastType;
+-import org.coffee_machine.coffee.ingridients.beans.type.BeanType;
+-import org.coffee_machine.machine.MyCoffeeMachine;
+-
+-import java.util.ArrayList;
+-import java.util.List;
+-import java.util.Scanner;
+-
+-public class AskCharacteristics {
+-
+-    private final Scanner scanner;
+-    private Beans beans;
+-    private List<AdditiveIngredients> additiveIngredientsList;
+-
+-    public AskCharacteristics() {
+-        scanner = new Scanner(System.in);
+-        beans = new Beans();
+-        additiveIngredientsList = new ArrayList<>();
+-    }
+-
+-    public void askRequirements() {
+-        System.out.println("================Hello dear user, which coffee do you desire?================");
+-
+-        try {
+-            askBeanType();
+-            askRoastType();
+-            askAdditiveIngredients();
+-
+-            sendDataToCoffeeMachine();
+-        } catch (RuntimeException exception) {
+-            System.out.println("================" + exception.getMessage() + "================");
+-        }
+-
+-    }
+-
+-
+-
+-    private void askBeanType() {
+-        String userBeanType = askUser("Coffee bean type [arabica, robusta]");
+-
+-        beans.setBeanType(BeanType.valueOf(userBeanType.toUpperCase()));
+-    }
+-
+-    private void askRoastType() {
+-        String userRoastType = askUser("Roast type [light, medium, dark]");
+-
+-        beans.setRoastType(RoastType.valueOf(userRoastType.toUpperCase()));
+-    }
+-
+-    private void askAdditiveIngredients() {
+-        int additiveIngredientsNumber = Integer.parseInt(askUser("How much additive ingredients"));
+-
+-        while (additiveIngredientsNumber > 0) {
+-            String userAdditiveIngredient = askUser("Additive ingredients [whipped_cream, caramel, lemon_juice, water, whiskey, milk, frothed_milk, chocolate, espresso]");
+-            additiveIngredientsList.add(AdditiveIngredients.valueOf(userAdditiveIngredient.toUpperCase()));
+-
+-            additiveIngredientsNumber--;
+-        }
+-    }
+-
+-    private void sendDataToCoffeeMachine() {
+-        MyCoffeeMachine myCoffeeMachine = new MyCoffeeMachine(beans, additiveIngredientsList);
+-
+-        myCoffeeMachine.start();
+-    }
+-
+-    private String askUser(String question) {
+-        System.out.print(question + ": ");
+-        String answer = scanner.nextLine();
+-
+-        if (!answer.isEmpty()) {
+-            return answer;
+-        }
+-        throw new RuntimeException("Answer cannot be empty!");
+-    }
+-
+-
+-}
+Index: ../CoffeeMachine_v2/.idea/uiDesigner.xml
+===================================================================
+diff --git a/../CoffeeMachine_v2/.idea/uiDesigner.xml b/../CoffeeMachine_v2/.idea/uiDesigner.xml
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/.idea/uiDesigner.xml	
++++ /dev/null	
+@@ -1,124 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="Palette2">
+-    <group name="Swing">
+-      <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="1" hsize-policy="6" anchor="0" fill="1" />
+-      </item>
+-      <item class="com.intellij.uiDesigner.VSpacer" tooltip-text="Vertical Spacer" icon="/com/intellij/uiDesigner/icons/vspacer.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="1" anchor="0" fill="2" />
+-      </item>
+-      <item class="javax.swing.JPanel" icon="/com/intellij/uiDesigner/icons/panel.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3" />
+-      </item>
+-      <item class="javax.swing.JScrollPane" icon="/com/intellij/uiDesigner/icons/scrollPane.svg" removable="false" auto-create-binding="false" can-attach-label="true">
+-        <default-constraints vsize-policy="7" hsize-policy="7" anchor="0" fill="3" />
+-      </item>
+-      <item class="javax.swing.JButton" icon="/com/intellij/uiDesigner/icons/button.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="3" anchor="0" fill="1" />
+-        <initial-values>
+-          <property name="text" value="Button" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JRadioButton" icon="/com/intellij/uiDesigner/icons/radioButton.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
+-        <initial-values>
+-          <property name="text" value="RadioButton" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JCheckBox" icon="/com/intellij/uiDesigner/icons/checkBox.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
+-        <initial-values>
+-          <property name="text" value="CheckBox" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JLabel" icon="/com/intellij/uiDesigner/icons/label.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="0" anchor="8" fill="0" />
+-        <initial-values>
+-          <property name="text" value="Label" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JTextField" icon="/com/intellij/uiDesigner/icons/textField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+-          <preferred-size width="150" height="-1" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JPasswordField" icon="/com/intellij/uiDesigner/icons/passwordField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+-          <preferred-size width="150" height="-1" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JFormattedTextField" icon="/com/intellij/uiDesigner/icons/formattedTextField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+-          <preferred-size width="150" height="-1" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTextArea" icon="/com/intellij/uiDesigner/icons/textArea.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTextPane" icon="/com/intellij/uiDesigner/icons/textPane.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JEditorPane" icon="/com/intellij/uiDesigner/icons/editorPane.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JComboBox" icon="/com/intellij/uiDesigner/icons/comboBox.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="2" anchor="8" fill="1" />
+-      </item>
+-      <item class="javax.swing.JTable" icon="/com/intellij/uiDesigner/icons/table.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JList" icon="/com/intellij/uiDesigner/icons/list.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="2" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTree" icon="/com/intellij/uiDesigner/icons/tree.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTabbedPane" icon="/com/intellij/uiDesigner/icons/tabbedPane.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
+-          <preferred-size width="200" height="200" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JSplitPane" icon="/com/intellij/uiDesigner/icons/splitPane.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
+-          <preferred-size width="200" height="200" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JSpinner" icon="/com/intellij/uiDesigner/icons/spinner.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
+-      </item>
+-      <item class="javax.swing.JSlider" icon="/com/intellij/uiDesigner/icons/slider.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
+-      </item>
+-      <item class="javax.swing.JSeparator" icon="/com/intellij/uiDesigner/icons/separator.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3" />
+-      </item>
+-      <item class="javax.swing.JProgressBar" icon="/com/intellij/uiDesigner/icons/progressbar.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1" />
+-      </item>
+-      <item class="javax.swing.JToolBar" icon="/com/intellij/uiDesigner/icons/toolbar.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1">
+-          <preferred-size width="-1" height="20" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JToolBar$Separator" icon="/com/intellij/uiDesigner/icons/toolbarSeparator.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="0" anchor="0" fill="1" />
+-      </item>
+-      <item class="javax.swing.JScrollBar" icon="/com/intellij/uiDesigner/icons/scrollbar.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
+-      </item>
+-    </group>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/roast/RoastType.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/roast/RoastType.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/roast/RoastType.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/roast/RoastType.java	
++++ /dev/null	
+@@ -1,9 +0,0 @@
+-package org.coffee_machine.coffee.ingridients.beans.roast;
+-
+-public enum RoastType {
+-
+-    LIGHT,
+-    MEDIUM,
+-    DARK
+-
+-}
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/result/CupOfCoffee.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/result/CupOfCoffee.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/result/CupOfCoffee.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/result/CupOfCoffee.java	
++++ /dev/null	
+@@ -1,43 +0,0 @@
+-package org.coffee_machine.coffee.ingridients.result;
+-
+-import org.coffee_machine.coffee.ingridients.additive.AdditiveIngredients;
+-import org.coffee_machine.coffee.ingridients.beans.Beans;
+-
+-import java.util.List;
+-
+-public class CupOfCoffee {
+-
+-    private String capacity;
+-    private Beans beans;
+-    private List<AdditiveIngredients> additiveIngredientsList;
+-
+-    public CupOfCoffee(String capacity, Beans beans, List<AdditiveIngredients> additiveIngredientsList) {
+-        this.capacity = capacity;
+-        this.beans = beans;
+-        this.additiveIngredientsList = additiveIngredientsList;
+-    }
+-
+-    public String getCapacity() {
+-        return capacity;
+-    }
+-
+-    public void setCapacity(String capacity) {
+-        this.capacity = capacity;
+-    }
+-
+-    public Beans getBeans() {
+-        return beans;
+-    }
+-
+-    public void setBeans(Beans beans) {
+-        this.beans = beans;
+-    }
+-
+-    public List<AdditiveIngredients> getAdditiveIngredientsList() {
+-        return additiveIngredientsList;
+-    }
+-
+-    public void setAdditiveIngredientsList(List<AdditiveIngredients> additiveIngredientsList) {
+-        this.additiveIngredientsList = additiveIngredientsList;
+-    }
+-}
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/Arabica.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/Arabica.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/Arabica.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/Arabica.java	
++++ /dev/null	
+@@ -1,8 +0,0 @@
+-package org.coffee_machine.coffee.ingridients.beans.type;
+-
+-public class Arabica extends CoffeeBean {
+-    private final boolean isBitter = false;
+-    private final double caffeineLevel = 1.5;
+-
+-    public Arabica() {}
+-}
+Index: ../CoffeeMachine_v2/pom.xml
+===================================================================
+diff --git a/../CoffeeMachine_v2/pom.xml b/../CoffeeMachine_v2/pom.xml
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/pom.xml	
++++ /dev/null	
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project xmlns="http://maven.apache.org/POM/4.0.0"
+-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+-    <modelVersion>4.0.0</modelVersion>
+-
+-    <groupId>org.coffee_machine</groupId>
+-    <artifactId>CoffeeMachine_v2</artifactId>
+-    <version>1.0-SNAPSHOT</version>
+-
+-    <properties>
+-        <maven.compiler.source>20</maven.compiler.source>
+-        <maven.compiler.target>20</maven.compiler.target>
+-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+-    </properties>
+-
+-</project>
+\ No newline at end of file
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/user_interface/UserInterface.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/user_interface/UserInterface.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/user_interface/UserInterface.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/user_interface/UserInterface.java	
++++ /dev/null	
+@@ -1,19 +0,0 @@
+-package org.coffee_machine.user_interface;
+-
+-public class UserInterface {
+-
+-    private AskCharacteristics askCharacteristics;
+-
+-
+-    public UserInterface() {
+-        askCharacteristics = new AskCharacteristics();
+-    }
+-
+-    public void sayHello(String greeting) {
+-        System.out.println(greeting);
+-    }
+-
+-    public void startUserSurvey() {
+-        askCharacteristics.askRequirements();
+-    }
+-}
+Index: src/main/java/org/example/Main.java
+===================================================================
+diff --git a/src/main/java/org/example/Main.java b/src/main/java/org/example/Main.java
+deleted file mode 100644
+--- a/src/main/java/org/example/Main.java	
++++ /dev/null	
+@@ -1,13 +0,0 @@
+-package org.example;
+-
+-import org.example.interaction.UserInteraction;
+-
+-public class Main {
+-
+-    public static void main(String[] args) {
+-        UserInteraction userInteraction = new UserInteraction();
+-
+-        userInteraction.startCoffeeMachine();
+-    }
+-
+-}
+\ No newline at end of file
+Index: ../CoffeeMachine_v2/.gitignore
+===================================================================
+diff --git a/../CoffeeMachine_v2/.gitignore b/../CoffeeMachine_v2/.gitignore
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/.gitignore	
++++ /dev/null	
+@@ -1,38 +0,0 @@
+-target/
+-!.mvn/wrapper/maven-wrapper.jar
+-!**/src/main/**/target/
+-!**/src/test/**/target/
+-
+-### IntelliJ IDEA ###
+-.idea/modules.xml
+-.idea/jarRepositories.xml
+-.idea/compiler.xml
+-.idea/libraries/
+-*.iws
+-*.iml
+-*.ipr
+-
+-### Eclipse ###
+-.apt_generated
+-.classpath
+-.factorypath
+-.project
+-.settings
+-.springBeans
+-.sts4-cache
+-
+-### NetBeans ###
+-/nbproject/private/
+-/nbbuild/
+-/dist/
+-/nbdist/
+-/.nb-gradle/
+-build/
+-!**/src/main/**/build/
+-!**/src/test/**/build/
+-
+-### VS Code ###
+-.vscode/
+-
+-### Mac OS ###
+-.DS_Store
+\ No newline at end of file
+Index: ../CoffeeMachine_v2/.idea/discord.xml
+===================================================================
+diff --git a/../CoffeeMachine_v2/.idea/discord.xml b/../CoffeeMachine_v2/.idea/discord.xml
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/.idea/discord.xml	
++++ /dev/null	
+@@ -1,7 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="DiscordProjectSettings">
+-    <option name="show" value="ASK" />
+-    <option name="description" value="" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/Beans.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/Beans.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/Beans.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/Beans.java	
++++ /dev/null	
+@@ -1,53 +0,0 @@
+-package org.coffee_machine.coffee.ingridients.beans;
+-
+-import org.coffee_machine.coffee.ingridients.beans.roast.RoastTemperature;
+-import org.coffee_machine.coffee.ingridients.beans.roast.RoastType;
+-import org.coffee_machine.coffee.ingridients.beans.type.BeanType;
+-
+-public class Beans {
+-
+-    private RoastType roastType;
+-    private float roastTemperature;
+-    private BeanType beanType;
+-
+-    public Beans() {}
+-
+-
+-    @Deprecated
+-    public void defineCoffeeTemperature() {
+-        if (roastType == RoastType.LIGHT)  roastTemperature = RoastTemperature.LIGHT;
+-        if (roastType == RoastType.MEDIUM) roastTemperature = RoastTemperature.MEDIUM;
+-        if (roastType == RoastType.DARK)   roastTemperature = RoastTemperature.DARK;
+-    }
+-
+-    public void showConfiguration() {
+-        System.out.println("Roast type: " + roastType);
+-        System.out.println("Roast temperature: " + roastTemperature);
+-        System.out.println("Bean type: " + beanType);
+-    }
+-
+-
+-    public void setRoastType(RoastType roastType) {
+-        this.roastType = roastType;
+-    }
+-
+-    public void setRoastTemperature(float roastTemperature) {
+-        this.roastTemperature = roastTemperature;
+-    }
+-
+-    public void setBeanType(BeanType beanType) {
+-        this.beanType = beanType;
+-    }
+-
+-    public RoastType getRoastType() {
+-        return roastType;
+-    }
+-
+-    public float getRoastTemperature() {
+-        return roastTemperature;
+-    }
+-
+-    public BeanType getBeanType() {
+-        return beanType;
+-    }
+-}
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/CoffeeBean.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/CoffeeBean.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/CoffeeBean.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/CoffeeBean.java	
++++ /dev/null	
+@@ -1,25 +0,0 @@
+-package org.coffee_machine.coffee.ingridients.beans.type;
+-
+-public abstract class CoffeeBean {
+-
+-    private boolean isBitter;
+-    private double caffeineLevel;
+-
+-    public CoffeeBean() {}
+-
+-    public boolean isBitter() {
+-        return isBitter;
+-    }
+-
+-    public void setBitter(boolean bitter) {
+-        isBitter = bitter;
+-    }
+-
+-    public double getCaffeineLevel() {
+-        return caffeineLevel;
+-    }
+-
+-    public void setCaffeineLevel(float caffeineLevel) {
+-        this.caffeineLevel = caffeineLevel;
+-    }
+-}
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/machine/AverageCoffeeMachine.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/machine/AverageCoffeeMachine.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/machine/AverageCoffeeMachine.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/machine/AverageCoffeeMachine.java	
++++ /dev/null	
+@@ -1,9 +0,0 @@
+-package org.coffee_machine.machine;
+-
+-public abstract class AverageCoffeeMachine {
+-
+-    abstract void start();
+-    abstract void pause();
+-    abstract void stop();
+-
+-}
+Index: src/main/java/org/example/coffee/CoffeeRoastTemperature.java
+===================================================================
+diff --git a/src/main/java/org/example/coffee/CoffeeRoastTemperature.java b/src/main/java/org/example/coffee/CoffeeRoastTemperature.java
+deleted file mode 100644
+--- a/src/main/java/org/example/coffee/CoffeeRoastTemperature.java	
++++ /dev/null	
+@@ -1,10 +0,0 @@
+-package org.example.coffee;
+-
+-public interface CoffeeRoastTemperature {
+-
+-    float LIGHT = 205;
+-    float MEDIUM = 215.5f;
+-    float DARK = 224;
+-    float COAL = 235;
+-
+-}
+Index: src/main/java/org/example/coffee/WaterType.java
+===================================================================
+diff --git a/src/main/java/org/example/coffee/WaterType.java b/src/main/java/org/example/coffee/WaterType.java
+deleted file mode 100644
+--- a/src/main/java/org/example/coffee/WaterType.java	
++++ /dev/null	
+@@ -1,9 +0,0 @@
+-package org.example.coffee;
+-
+-public enum WaterType {
+-
+-    FILTERED,
+-    MINERAL,
+-    TAP
+-
+-}
+Index: ../CoffeeMachine_v2/.idea/.gitignore
+===================================================================
+diff --git a/../CoffeeMachine_v2/.idea/.gitignore b/../CoffeeMachine_v2/.idea/.gitignore
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/.idea/.gitignore	
++++ /dev/null	
+@@ -1,8 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-# Editor-based HTTP Client requests
+-/httpRequests/
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+Index: src/main/java/org/example/coffee/CoffeeBeanType.java
+===================================================================
+diff --git a/src/main/java/org/example/coffee/CoffeeBeanType.java b/src/main/java/org/example/coffee/CoffeeBeanType.java
+deleted file mode 100644
+--- a/src/main/java/org/example/coffee/CoffeeBeanType.java	
++++ /dev/null	
+@@ -1,8 +0,0 @@
+-package org.example.coffee;
+-
+-public enum CoffeeBeanType {
+-
+-    ARABICA,
+-    ROBUSTA
+-
+-}
+Index: src/main/java/org/example/coffee/CoffeeRoast.java
+===================================================================
+diff --git a/src/main/java/org/example/coffee/CoffeeRoast.java b/src/main/java/org/example/coffee/CoffeeRoast.java
+deleted file mode 100644
+--- a/src/main/java/org/example/coffee/CoffeeRoast.java	
++++ /dev/null	
+@@ -1,10 +0,0 @@
+-package org.example.coffee;
+-
+-public enum CoffeeRoast {
+-
+-    LIGHT,
+-    MEDIUM,
+-    DARK,
+-    COAL
+-
+-}
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/Robusta.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/Robusta.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/Robusta.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/coffee/ingridients/beans/type/Robusta.java	
++++ /dev/null	
+@@ -1,10 +0,0 @@
+-package org.coffee_machine.coffee.ingridients.beans.type;
+-
+-public class Robusta extends CoffeeBean {
+-
+-    private final boolean isBitter = true;
+-    private final double caffeineLevel = 2.5;
+-
+-    public Robusta() {};
+-
+-}
+Index: src/main/java/org/example/coffee/Coffee.java
+===================================================================
+diff --git a/src/main/java/org/example/coffee/Coffee.java b/src/main/java/org/example/coffee/Coffee.java
+deleted file mode 100644
+--- a/src/main/java/org/example/coffee/Coffee.java	
++++ /dev/null	
+@@ -1,52 +0,0 @@
+-package org.example.coffee;
+-
+-public class Coffee {
+-
+-    private CoffeeBeanType beanType;
+-    private float temperature;
+-    private CoffeeRoast roast;
+-    private WaterType waterType;
+-
+-    public Coffee(CoffeeBeanType beanType, float temperature, CoffeeRoast roast, WaterType waterType) {
+-        this.beanType = beanType;
+-        this.temperature = temperature;
+-        this.roast = roast;
+-        this.waterType = waterType;
+-    }
+-
+-
+-
+-
+-    public CoffeeBeanType getBeanType() {
+-        return beanType;
+-    }
+-
+-    public void setBeanType(CoffeeBeanType beanType) {
+-        this.beanType = beanType;
+-    }
+-
+-    public float getTemperature() {
+-        return temperature;
+-    }
+-
+-    public void setTemperature(float temperature) {
+-        this.temperature = temperature;
+-    }
+-
+-    public CoffeeRoast getRoast() {
+-        return roast;
+-    }
+-
+-    public void setRoast(CoffeeRoast roast) {
+-        this.roast = roast;
+-    }
+-
+-    public WaterType getWaterType() {
+-        return waterType;
+-    }
+-
+-    public void setWaterType(WaterType waterType) {
+-        this.waterType = waterType;
+-    }
+-
+-}
+Index: ../CoffeeMachine_v2/src/main/java/org/coffee_machine/Main.java
+===================================================================
+diff --git a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/Main.java b/../CoffeeMachine_v2/src/main/java/org/coffee_machine/Main.java
+deleted file mode 100644
+--- a/../CoffeeMachine_v2/src/main/java/org/coffee_machine/Main.java	
++++ /dev/null	
+@@ -1,16 +0,0 @@
+-package org.coffee_machine;
+-
+-import org.coffee_machine.machine.MyCoffeeMachine;
+-import org.coffee_machine.user_interface.UserInterface;
+-
+-public class Main {
+-
+-    /**
+-     * Write here only machine's instances. They must have a start method!
+-     * */
+-    public static void main(String[] args) {
+-        UserInterface userInterface = new UserInterface();
+-
+-        userInterface.startUserSurvey();
+-    }
+-}
+\ No newline at end of file
+Index: README.md
+===================================================================
+diff --git a/README.md b/README.md
+deleted file mode 100644
+--- a/README.md	
++++ /dev/null	
+@@ -1,21 +0,0 @@
+-# =========FINISH IT TOMORROW=========
+-
+-
+-# CoffeeMachine project (deprecated)
+-## What is it?
+-CoffeeMachine project is first version of an Idea about Coffee Machine Math Project.
+-
+-**DON'T USE IT. THIS PROJECT DEPRECATED!**
+-## Feautres
+-**NO FEATURES**
+-## How does it work?
+-Since it is first version which i wrote during one day it can do next:
+-- Ask water[^1] type, bean[^2] type and roast[^3]
+-- Define Coffee temperature[^4]
+-- Show all cup of tea data[^5]
+-
+-## Internal organization
+-Enums:
+-[^1]:WaterType containes following types: *FILTERED, MINERAL, TAP*
+-[^2]:CoffeeBeanType contains following types: *ARABICA, ROBUSTA*
+-[^3]:CoffeeRoast contains following types: *LIGHT, MEDIUM, DARK, COAL* 

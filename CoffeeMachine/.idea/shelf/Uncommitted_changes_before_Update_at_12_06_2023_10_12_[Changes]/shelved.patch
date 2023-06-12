@@ -1,0 +1,51 @@
+Index: .idea/discord.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DiscordProjectSettings\">\r\n    <option name=\"show\" value=\"PROJECT_FILES\" />\r\n    <option name=\"description\" value=\"Math model of Coffee Machine. Testing interfaces knowelege\" />\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/discord.xml b/.idea/discord.xml
+--- a/.idea/discord.xml	
++++ b/.idea/discord.xml	
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="DiscordProjectSettings">
+-    <option name="show" value="PROJECT_FILES" />
+-    <option name="description" value="Math model of Coffee Machine. Testing interfaces knowelege" />
++    <option name="show" value="ASK" />
++    <option name="description" value="" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <groupId>org.example</groupId>\r\n    <artifactId>CoffeeMachine</artifactId>\r\n    <version>1.0-SNAPSHOT</version>\r\n\r\n    <properties>\r\n        <maven.compiler.source>20</maven.compiler.source>\r\n        <maven.compiler.target>20</maven.compiler.target>\r\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\r\n    </properties>\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.jetbrains</groupId>\r\n            <artifactId>annotations</artifactId>\r\n            <version>24.0.1</version>\r\n            <scope>compile</scope>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n</project>
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	
++++ b/pom.xml	
+@@ -4,7 +4,7 @@
+          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+     <modelVersion>4.0.0</modelVersion>
+ 
+-    <groupId>org.example</groupId>
++    <groupId>org.coffee_machine</groupId>
+     <artifactId>CoffeeMachine</artifactId>
+     <version>1.0-SNAPSHOT</version>
+ 
+@@ -13,13 +13,5 @@
+         <maven.compiler.target>20</maven.compiler.target>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     </properties>
+-    <dependencies>
+-        <dependency>
+-            <groupId>org.jetbrains</groupId>
+-            <artifactId>annotations</artifactId>
+-            <version>24.0.1</version>
+-            <scope>compile</scope>
+-        </dependency>
+-    </dependencies>
+ 
+ </project>
+\ No newline at end of file

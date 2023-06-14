@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e63a452-9548-40d2-9150-e269693667a6" name="Changes" comment="Update from Intellij Idea.&#10;I renamed project and deleted unused imports">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,11 +24,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -50,6 +50,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Architect/Desktop/projects/java/STUFF_PROJECTS/Java_Timer",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -102,7 +103,8 @@
       <workItem from="1686323249553" duration="3513000" />
       <workItem from="1686502506710" duration="1763000" />
       <workItem from="1686546223872" duration="4689000" />
-      <workItem from="1686553738955" duration="2263000" />
+      <workItem from="1686553738955" duration="2460000" />
+      <workItem from="1686588888892" duration="81000" />
     </task>
     <task id="LOCAL-00001" summary="Update from Intellij Idea.&#10;I renamed project and deleted unused imports">
       <created>1686554034357</created>
